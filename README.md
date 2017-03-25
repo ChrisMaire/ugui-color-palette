@@ -1,4 +1,7 @@
 # ugui-color-palette
+
+![alt tag](http://i.imgur.com/0nctAYJ.gif)
+
 A basic system for creating color palettes for Unity GUIs.
 
 Instructions:
