@@ -6,10 +6,10 @@ using UnityEngine.Events;
 
 namespace FunColors
 {
-    public class ColorPaletteManager : MonoBehaviour
+    public static class ColorPaletteManager
     {
-        private ColorPalette currentPalette;
-        public ColorPalette CurrentPalette
+        private static ColorPalette currentPalette;
+        public static ColorPalette CurrentPalette
         {
             get
             {
@@ -26,31 +26,9 @@ namespace FunColors
             }
         }
 
-        private static ColorPaletteManager instance;
-        public static ColorPaletteManager Instance
-        {
-            get
-            {
-                if (instance == null)
-                {
-                    instance = FindObjectOfType<ColorPaletteManager>();
-                    if (instance == null)
-                    {
-                        instance = GameObject.Instantiate<ColorPaletteManager>(Resources.Load<ColorPaletteManager>("Prefabs/ColorPaletteManager"));
-                    }
-                }
-                return instance;
-            }
-        }
+        public static ColorPaletteChangedEvent ColorPaletteChanged = new ColorPaletteChangedEvent();
 
-        public ColorPaletteChangedEvent ColorPaletteChanged = new ColorPaletteChangedEvent();
-
-        public void SetPalette(ColorPalette newPalette)
-        {
-            CurrentPalette = newPalette;
-        }
-
-        public void PaletteChanged()
+        public static void PaletteChanged()
         {
             ColorPaletteChanged.Invoke(currentPalette);
         }

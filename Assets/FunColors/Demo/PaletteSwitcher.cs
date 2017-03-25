@@ -10,7 +10,7 @@ public class PaletteSwitcher : MonoBehaviour
 
     void Start()
     {
-        ColorPaletteManager.Instance.SetPalette(palettes[currPalette]);
+        ColorPaletteManager.CurrentPalette = palettes[currPalette];
     }
 
 	void Update () {
@@ -36,6 +36,6 @@ public class PaletteSwitcher : MonoBehaviour
             currPalette = palettes.Count - 1;
         }
 
-        ColorPaletteManager.Instance.SetPalette(palettes[currPalette]);
+        ColorPaletteManager.CurrentPalette = palettes[currPalette];
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,18 +17,35 @@ namespace FunColors
 
         public void Awake()
         {
-            targetGraphic = GetComponent<Graphic>();
-            ColorPaletteManager.Instance.ColorPaletteChanged.AddListener(ApplyColorPalette);
+            if (targetGraphic == null)
+            {
+                targetGraphic = GetComponent<Graphic>();
+            }
+
+            ColorPaletteManager.ColorPaletteChanged.AddListener(ApplyColorPalette);
         }
 
         public void ApplyColorPalette(ColorPalette newPallete)
         {
+            if (targetGraphic == null)
+            {
+                targetGraphic = GetComponent<Graphic>();
+            }
+
             if (targetGraphic != null)
             {
                 if (newPallete.ColorsByName.ContainsKey(color))
                 {
                     targetGraphic.color = newPallete.ColorsByName[color].color;
                 }
+            }
+        }
+
+        void Reset()
+        {
+            if (targetGraphic == null)
+            {
+                targetGraphic = GetComponent<Graphic>();
             }
         }
     }

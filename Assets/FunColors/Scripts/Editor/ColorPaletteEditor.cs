@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,7 +16,18 @@ namespace FunColors
 
             if (GUILayout.Button("Apply Palette"))
             {
-                ColorPaletteManager.Instance.SetPalette((ColorPalette)target);
+                ColorPalette palette = (ColorPalette) target;
+
+                ColorPaletteManager.CurrentPalette = palette;
+
+                ApplyColorPaletteColorToGraphic[] applyTo = FindObjectsOfType<ApplyColorPaletteColorToGraphic>();
+                foreach (var applyTarget in applyTo)
+                {
+                    applyTarget.ApplyColorPalette(palette);
+                }
+
+                //this isn't actually doing anything in edit mode?
+                Canvas.ForceUpdateCanvases();
             }
         }
     }
